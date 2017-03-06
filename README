@@ -1,0 +1,38 @@
+## About
+
+The Dockerfile creates a docker image of an [elog](https://midas.psi.ch/elog/) server (3.1.1) built on ubuntu (16.04).  The example configuration file creates 3 logbooks, which can be accessed using http://localhost:8080
+
+The elog.conf file and logbooks can be preserved using docker volumes. In the example configuration, Latex math is rendered using [MathJax](https://www.mathjax.org/).
+
+**Warning:** SSL is not supported. Passwords sent over the network are vulnerable to sniffing attacks. It's strongly recommended that you use an SSL-enabled proxy (e.g., Apache or nginx). 
+
+SMTP (email notification) is not supported.
+
+For setting-up, Self Registration = 1.  Recomend disabling and setting the admin user.  See elog.conf [syntax](https://midas.psi.ch/elog/config.html)
+
+## Example usage
+
+Download the Dockerfile
+
+```
+git clone https://github.com/ad3ller/elog-ad.git
+cd ./elog-ad
+```
+
+Build the docker image,
+
+```
+docker build -t elog-ad .
+```
+
+Create a docker volume to store the config file and logbooks,
+
+```
+docker volume create --name elog_conf
+docker volume create --name logbooks
+```
+
+Run the docker image,
+```
+docker run --name elog-1 --restart always -t -p 8080:8080 -v elog_conf:/etc/elog -v logbooks:/var/lib/elog elog-ad
+```

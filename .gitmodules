@@ -1,0 +1,3 @@
+[submodule "elog-banner-css"]
+	path = elog-banner-css
+	url = https://github.com/ad3ller/elog-banner-css.git
