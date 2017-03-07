@@ -1,24 +1,28 @@
 ## About
 The Dockerfile creates a docker image of an [elog](https://midas.psi.ch/elog/) server (3.1.1) built on Ubuntu Linux (16.04).  
 
-The example configuration file creates 3 logbooks.  These can be accessed via http://localhost:8080
+The example configuration file creates 3 logbooks: Experiment, Hardware, and Simulation.
 
-## Usage
-Download the Dockerfile
-
+## Docker image
+Pull the Dockerfile from github
 ```
-git clone https://github.com/ad3ller/elog-docker.git
+git clone --recursive git://github.com/ad3ller/elog-docker.git
 cd ./elog-docker
 ```
 
-Build the docker image,
-
+Edit elog.conf to suit your needs and then build the docker image
 ```
 docker build -t elog .
 ```
 
-Create a docker volume to store the config file and logbooks,
+Alternatively, pull the automated-build image from dockerhub
+```
+docker pull de1lz/elog-docker
+docker tag de1lz/elog-docker elog
+```
 
+## Example usage
+Create docker volumes to store the config file and logbooks,
 ```
 docker volume create --name elog_conf
 docker volume create --name logbooks
@@ -28,14 +32,17 @@ Run the docker image,
 ```
 docker run --name elog-1 --restart always -t -p 8080:8080 -v elog_conf:/etc/elog -v logbooks:/var/lib/elog elog
 ```
+
+The elog server can be accessed via [http://localhost:8080](http://localhost:8080)
+
+Nb.  This method allows you to preserve modifications made to elog.conf.  Instead, you may wish to use a static config file.  In this case modify elog.conf before building the image and omit the elog_conf volume when running.  You may also wish to make /etc/elog/elog.conf read only using chmod in the Dockerfile.
+
 ## Notes
+In the example config, Latex math can be rendered using [MathJax](https://www.mathjax.org/).
 
-In the example, Latex math is rendered using [MathJax](https://www.mathjax.org/).
-
-SMTP (email notification) is not supported.
+SMTP (email notification) is not tested.
 
 ## Warning
-
 SSL is not supported. Passwords sent over the network are vulnerable to sniffing attacks. It's strongly recommended that you use an SSL-enabled proxy (e.g., Apache or nginx). 
 
-For setting-up, Self Registration = 1.  Recomend disabling and setting the Admin user.  See elog.conf [syntax](https://midas.psi.ch/elog/config.html).
+For setting-up, *Self registration = 1*.  It's advisable to set the *Admin user* and disable *Self registration*.  See elog.conf [syntax](https://midas.psi.ch/elog/config.html).
