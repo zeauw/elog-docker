@@ -7,6 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # imagemagick and elog
 RUN apt-get update \
     && apt-get --yes install \
+        openssl \
         imagemagick \
         ckeditor \
         elog \
