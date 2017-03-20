@@ -27,7 +27,7 @@ COPY ./elog-banner-css/css/ /usr/share/elog/themes/default/banner
 # elog logbooks
 RUN chown -R elog:elog /var/lib/elog
 
-EXPOSE 8080 587
+EXPOSE 8080
 
 #USER 751
 CMD ["elogd", "-p", "8080", "-c", "/etc/elog/elog.conf"]
