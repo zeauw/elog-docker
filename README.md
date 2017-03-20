@@ -30,7 +30,7 @@ docker volume create --name logbooks
 
 Run the docker image,
 ```
-docker run --name elog-1 --restart always -t -p 8080:8080 -v elog_conf:/etc/elog -v logbooks:/var/lib/elog elog
+docker run --name elog-1 --restart always -d -p 8080:8080 -v elog_conf:/etc/elog -v logbooks:/var/lib/elog elog
 ```
 
 The elog server can be accessed via [http://localhost:8080](http://localhost:8080)
