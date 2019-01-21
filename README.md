@@ -30,10 +30,10 @@ docker volume create --name logbooks
 
 Run the docker image,
 ```
-docker run --name elog-1 --restart always -d -p 80:8080 -v elog_conf:/etc/elog -v logbooks:/var/lib/elog elog
+docker run --name elog-1 --restart always -d -p 80:80 -v elog_conf:/etc/elog -v logbooks:/var/lib/elog elog
 ```
 
-This forwards port 80 from the container to [localhost:8080](http://localhost:8080)
+This forwards port 80 from the container to [localhost:80](http://localhost:8080)
 
 Nb.  This method allows you to preserve modifications made to elog.conf.  Instead, you may wish to use a static config file.  In this case modify elog.conf before building the image and omit the elog_conf volume when running.  You may also wish to make /etc/elog/elog.conf read only using chmod in the Dockerfile.
 
