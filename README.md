@@ -1,5 +1,5 @@
 ## About
-The Dockerfile creates a docker image of an [elog](https://midas.psi.ch/elog/) server (3.1.1) built on Ubuntu Linux (16.04).  
+The Dockerfile creates a docker image of an [elog](https://elog.psi.ch/elog/) server (3.1.2) built on Debain 9.  
 
 The example configuration file creates 3 logbooks: Experiment, Hardware, and Simulation.
 
@@ -30,17 +30,17 @@ docker volume create --name logbooks
 
 Run the docker image,
 ```
-docker run --name elog-1 --restart always -d -p 8080:8080 -v elog_conf:/etc/elog -v logbooks:/var/lib/elog elog
+docker run --name elog-1 --restart always -d -p 80:8080 -v elog_conf:/etc/elog -v logbooks:/var/lib/elog elog
 ```
 
-The elog server can be accessed via [http://localhost:8080](http://localhost:8080)
+This forwards port 80 from the container to [localhost:8080](http://localhost:8080)
 
 Nb.  This method allows you to preserve modifications made to elog.conf.  Instead, you may wish to use a static config file.  In this case modify elog.conf before building the image and omit the elog_conf volume when running.  You may also wish to make /etc/elog/elog.conf read only using chmod in the Dockerfile.
 
 ## Notes
 In the example config, Latex math can be rendered using [MathJax](https://www.mathjax.org/).
 
-SMTP (email notification) is not tested.
+SMTP (email notification) is not tested (and probably doesn't work).
 
 ## Warning
 SSL is not supported. Passwords sent over the network are vulnerable to sniffing attacks. It's strongly recommended that you use an SSL-enabled proxy (e.g., Apache or nginx). 

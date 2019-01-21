@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM debian:stretch-slim
 
 MAINTAINER "adam.deller1@gmail.com"
 
@@ -7,7 +7,6 @@ ENV DEBIAN_FRONTEND noninteractive
 # imagemagick and elog
 RUN apt-get update \
     && apt-get --yes install \
-        openssl \
         imagemagick \
         ckeditor \
         elog \
@@ -27,7 +26,7 @@ COPY ./elog-banner-css/css/ /usr/share/elog/themes/default/banner
 # elog logbooks
 RUN chown -R elog:elog /var/lib/elog
 
-EXPOSE 8080
+EXPOSE 80
 
 #USER 751
-CMD ["elogd", "-p", "8080", "-c", "/etc/elog/elog.conf"]
+CMD ["elogd", "-p", "80", "-c", "/etc/elog/elog.conf"]
