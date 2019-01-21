@@ -6,7 +6,7 @@ The example configuration file creates 3 logbooks: Experiment, Hardware, and Sim
 ## Docker image
 Pull the Dockerfile from github
 ```
-git clone --recursive git://github.com/ad3ller/elog-docker.git
+git clone --recursive https://github.com/ad3ller/elog-docker
 cd ./elog-docker
 ```
 
