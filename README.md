@@ -15,7 +15,7 @@ Edit elog.conf to suit your needs and then build the docker image
 docker build -t elog .
 ```
 
-Alternatively, pull the automated-build image from dockerhub
+Alternatively, pull the automated-build image from [dockerhub](https://hub.docker.com/r/de1lz/elog-docker/)
 ```
 docker pull de1lz/elog-docker
 docker tag de1lz/elog-docker elog
