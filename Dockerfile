@@ -1,6 +1,6 @@
 FROM debian:stretch-slim
 
-MAINTAINER "adam.deller1@gmail.com"
+MAINTAINER "d08r6u33ru1s@blurme.net"
 
 ENV DEBIAN_FRONTEND noninteractive
 
