@@ -1,5 +1,5 @@
 ## About
-The Dockerfile creates a docker image of an [elog](https://elog.psi.ch/elog/) server (3.1.2) built on Debain 9 (stretch-slim).  
+The Dockerfile creates a docker image of an [elog](https://elog.psi.ch/elog/) server built on Debain (stable).  
 
 The example configuration file creates 3 logbooks: Experiment, Hardware, and Simulation.
 
@@ -30,7 +30,7 @@ docker volume create --name logbooks
 
 Run the docker image,
 ```
-docker run --name elog-1 --restart always -d -p 8080:8080 -v elog_conf:/etc/elog -v logbooks:/var/lib/elog elog
+docker run --name elog --restart always -d -p 8080:8080 -v elog_conf:/etc/elog -v logbooks:/var/lib/elog elog
 ```
 
 This forwards port 8080 from the container to [localhost:8080](http://localhost:8080)

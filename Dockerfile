@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:stable
 
 MAINTAINER "d08r6u33ru1s@blurme.net"
 
