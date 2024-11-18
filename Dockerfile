@@ -1,32 +1,34 @@
 FROM debian:stable
 
-MAINTAINER "d08r6u33ru1s@blurme.net"
+MAINTAINER "me@zeauw.dev"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 # imagemagick and elog
 RUN apt-get update \
-    && apt-get --yes install \
-        imagemagick \
-        ckeditor \
-        elog \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get --yes install imagemagick ckeditor libssl-dev g++ make wget\
+    && rm -rf /var/lib/apt/lists/* 
 
-RUN apt-get clean
+RUN apt-get clean 
+
+RUN mkdir /make\
+    && cd /make\
+    && wget http://elog.psi.ch/elog/download/tar/elog-latest.tar.gz\
+    && tar -xzf elog-latest.tar.gz\
+    && cd elog-*\
+    && make install
+
+RUN cd /\
+    && rm -rf make\
+    && apt -y purge g++ make wget\
+    && apt -y autoremove\
+    && apt clean
 
 # elog config
 RUN mkdir /etc/elog
 COPY ./elog.conf /etc/elog/elog.conf
-RUN chown elog:elog /etc/elog/elog.conf
-
-# CSS banner themes
-RUN mkdir /usr/share/elog/themes/default/banner
-COPY ./elog-banner-css/css/ /usr/share/elog/themes/default/banner
-
-# elog logbooks
-RUN chown -R elog:elog /var/lib/elog
+RUN mkdir data
 
 EXPOSE 8080
 
-#USER 751
-CMD ["elogd", "-p", "8080", "-c", "/etc/elog/elog.conf"]
+CMD ["bash", "-c", "if [ ! -e /data/elog.conf ]; then cp /etc/elog/elog.conf /data/; fi; mkdir -p /data/resource /data/logbook; elogd -p 8080 -c /data/elog.conf -s /data/resource -d /data/logbook"]
