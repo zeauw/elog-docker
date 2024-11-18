@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  dokuwiki:
+    image: 192.168.122.1:5000/elog:latest
+    restart: always
+    privileged: true
+    ports:
+      - "3002:8080"
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    volumes:
+      - ./data:/data
