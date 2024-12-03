@@ -1,4 +1,7 @@
 ## About
+
+Forked form [ad3ller/elog-docker](https://github.com/ad3ller/elog-docker). Update it to newest debian container.
+
 The Dockerfile creates a docker image of an [elog](https://elog.psi.ch/elog/) server built on Debain (stable).  
 
 The example configuration file creates 3 logbooks: Experiment, Hardware, and Simulation.
@@ -6,7 +9,7 @@ The example configuration file creates 3 logbooks: Experiment, Hardware, and Sim
 ## Docker image
 Pull the Dockerfile from github
 ```
-git clone --recursive https://github.com/ad3ller/elog-docker
+git clone --recursive https://github.com/zeauw/elog-docker
 cd ./elog-docker
 ```
 
@@ -15,27 +18,9 @@ Edit elog.conf to suit your needs and then build the docker image
 docker build -t elog .
 ```
 
-Alternatively, pull the automated-build image from [dockerhub](https://hub.docker.com/r/de1lz/elog-docker/)
-```
-docker pull de1lz/elog-docker
-docker tag de1lz/elog-docker elog
-```
-
 ## Example usage
-Create docker volumes to store the config file and logbooks,
-```
-docker volume create --name elog_conf
-docker volume create --name logbooks
-```
 
-Run the docker image,
-```
-docker run --name elog --restart always -d -p 8080:8080 -v elog_conf:/etc/elog -v logbooks:/var/lib/elog elog
-```
-
-This forwards port 8080 from the container to [localhost:8080](http://localhost:8080)
-
-Nb.  This method allows you to preserve modifications made to elog.conf.  Instead, you may wish to use a static config file.  In this case modify elog.conf before building the image and omit the elog_conf volume when running.  You may also wish to make /etc/elog/elog.conf read only using chmod in the Dockerfile.
+An example for podman compose is in the repo (compose.yml).
 
 ## Notes
 In the example config, Latex math can be rendered using [MathJax](https://www.mathjax.org/).  This recognises inline math `$ ... $` and numbered equations `\being{equation} ... \end{equation}` in elog entries.
